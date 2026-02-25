@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - chore/codex-canon
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.0'
+          check-latest: true
+          cache: yarn
+
+      - name: Verify Node version
+        run: node -v
+
+      - name: Install dependencies
+        run: yarn install --immutable
