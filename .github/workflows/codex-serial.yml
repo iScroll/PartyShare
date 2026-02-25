@@ -1,0 +1,46 @@
+name: Codex Serial Autopilot
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: codex-serial
+  cancel-in-progress: false
+
+jobs:
+  codex-serial:
+    if: github.event.label.name == 'codex-serial'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Codex
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          npx -y @openai/codex exec \
+            "Resolve GitHub issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}\n\n${{ github.event.issue.body }}"
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: codex-serial/issue-${{ github.event.issue.number }}
+          commit-message: "chore: codex-serial changes for issue #${{ github.event.issue.number }}"
+          title: "[codex-serial] ${{ github.event.issue.title }}"
+          body: |
+            Automated Codex update for issue #${{ github.event.issue.number }}.
+
+            Trigger: `codex-serial`
