@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: yarn
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          scripts=(lint test format-ci typecheck test-ci)
+          for script in "${scripts[@]}"; do
+            if node -e "const s=require('./package.json').scripts||{}; process.exit(s['$script']?0:1)"; then
+              echo "Running yarn run $script"
+              yarn run "$script"
+            else
+              echo "Skipping missing script: $script"
+            fi
+          done
