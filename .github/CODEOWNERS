@@ -1,0 +1,10 @@
+# Global default owners
+* @iScroll
+
+# CI and governance docs
+/.github/ @iScroll
+/CODEX_CANON.md @iScroll
+/SECURITY.md @iScroll
+/CONTRIBUTING.md @iScroll
+/docs/ @iScroll
+/prompts/ @iScroll
