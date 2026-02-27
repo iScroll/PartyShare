@@ -1,13 +1,8 @@
 const crypto = require('crypto');
 
 const CLIENT_ID = process.env.REACT_APP_SHARETRIBE_SDK_CLIENT_ID;
-const ROOT_URL = process.env.REACT_APP_MARKETPLACE_ROOT_URL;
 const CONSOLE_URL = process.env.SERVER_SHARETRIBE_CONSOLE_URL || 'https://console.sharetribe.com';
 const USING_SSL = process.env.REACT_APP_SHARETRIBE_USING_SSL === 'true';
-
-// redirect_uri param used when initiating a login as authentication flow and
-// when requesting a token using an authorization code
-const loginAsRedirectUri = `${ROOT_URL.replace(/\/$/, '')}/api/login-as`;
 
 // Cookies used for authorization code authentication.
 const stateKey = `st-${CLIENT_ID}-oauth2State`;
@@ -38,14 +33,19 @@ const urlifyBase64 = base64Str =>
 // passed in this response. The request to the redirect URI is handled with the
 // `/login-as` endpoint.
 module.exports = (req, res) => {
+  const rootUrl = process.env.REACT_APP_MARKETPLACE_ROOT_URL;
   const userId = req.query.user_id;
 
   if (!userId) {
     return res.status(400).send('Missing query parameter: user_id.');
   }
-  if (!ROOT_URL) {
+  if (!rootUrl) {
     return res.status(409).send('Marketplace canonical root URL is missing.');
   }
+
+  // redirect_uri param used when initiating a login as authentication flow and
+  // when requesting a token using an authorization code
+  const loginAsRedirectUri = `${rootUrl.replace(/\/$/, '')}/api/login-as`;
 
   const state = urlifyBase64(crypto.randomBytes(32).toString('base64'));
   const codeVerifier = urlifyBase64(crypto.randomBytes(32).toString('base64'));
