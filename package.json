@@ -72,7 +72,6 @@
     "prettier": "^1.18.2"
   },
   "resolutions": {
-    "sharetribe-scripts/webpack-dev-server/express/path-to-regexp": "0.1.12",
     "moment": "^2.30.1"
   },
   "jest": {
@@ -102,7 +101,9 @@
     "test-server": "jest --testPathPattern=server/.*\\.test\\.js$",
     "heroku-postbuild": "yarn run build",
     "postinstall": "patch-package",
-    "translate": "node scripts/translations.js"
+    "translate": "node scripts/translations.js",
+    "smoke": "yarn build",
+    "healthcheck": "node scripts/healthcheck.js"
   },
   "browserslist": {
     "production": [
