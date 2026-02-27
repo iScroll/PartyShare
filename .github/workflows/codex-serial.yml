@@ -1,0 +1,38 @@
+name: Codex Serial
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: codex-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  codex:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Codex safely (serial)
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          set -euo pipefail
+
+          prompt_file="$(mktemp)"
+          {
+            printf 'Issue title: %s\n\n' "$ISSUE_TITLE"
+            printf 'Issue body:\n%s\n' "$ISSUE_BODY"
+          } > "$prompt_file"
+
+          codex exec --prompt-file "$prompt_file"
