@@ -1,12 +1,7 @@
 const sdkUtils = require('../api-util/sdk');
 
 const CLIENT_ID = process.env.REACT_APP_SHARETRIBE_SDK_CLIENT_ID;
-const ROOT_URL = process.env.REACT_APP_MARKETPLACE_ROOT_URL;
 const USING_SSL = process.env.REACT_APP_SHARETRIBE_USING_SSL === 'true';
-
-// redirect_uri param used when initiating a login as authentication flow and
-// when requesting a token using an authorization code
-const loginAsRedirectUri = `${ROOT_URL.replace(/\/$/, '')}/api/login-as`;
 
 // Cookies used for authorization code authentication.
 const stateKey = `st-${CLIENT_ID}-oauth2State`;
@@ -19,6 +14,7 @@ const targetPathKey = `st-${CLIENT_ID}-targetPath`;
 // an authorization code and uses that to log in and redirect to the landing
 // page.
 module.exports = (req, res) => {
+  const rootUrl = process.env.REACT_APP_MARKETPLACE_ROOT_URL;
   const { code, state, error } = req.query || {};
   const storedState = req.cookies[stateKey];
 
@@ -34,6 +30,15 @@ module.exports = (req, res) => {
 
   const codeVerifier = req.cookies[codeVerifierKey];
   const targetPath = req.cookies[targetPathKey];
+
+  if (!rootUrl) {
+    res.status(409).send('Marketplace canonical root URL is missing.');
+    return;
+  }
+
+  // redirect_uri param used when initiating a login as authentication flow and
+  // when requesting a token using an authorization code
+  const loginAsRedirectUri = `${rootUrl.replace(/\/$/, '')}/api/login-as`;
 
   // clear state and code verifier cookies
   res.clearCookie(stateKey, { secure: USING_SSL });
