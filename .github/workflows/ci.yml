@@ -11,6 +11,10 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18.x, 20.x]
 
     steps:
       - name: Checkout
@@ -19,12 +23,23 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.22.0'
-          check-latest: true
+          node-version: ${{ matrix.node-version }}
           cache: yarn
 
       - name: Verify Node version
         run: node -v
 
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Activate Yarn Classic
+        run: corepack prepare yarn@1.22.22 --activate
+
+      - name: Verify Yarn version
+        run: yarn --version
+
       - name: Install dependencies
-        run: yarn install --immutable
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
