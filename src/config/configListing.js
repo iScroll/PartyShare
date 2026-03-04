@@ -53,6 +53,189 @@
  *   - requiredMessage (optional):    Message for those fields, which are mandatory.
  */
 export const listingFields = [
+  {
+    key: 'category',
+    scope: 'public',
+    schemaType: 'enum',
+    enumOptions: [
+      { option: 'tables', label: 'Tables' },
+      { option: 'chairs', label: 'Chairs' },
+      { option: 'tents', label: 'Tents' },
+      { option: 'lighting', label: 'Lighting' },
+      { option: 'audio', label: 'Audio' },
+      { option: 'decor', label: 'Decor' },
+      { option: 'games', label: 'Games' },
+      { option: 'misc', label: 'Misc' },
+    ],
+    filterConfig: {
+      indexForSearch: true,
+      label: 'Category',
+      group: 'primary',
+    },
+    showConfig: {
+      label: 'Category',
+      isDetail: true,
+    },
+    saveConfig: {
+      label: 'Category',
+      placeholderMessage: 'Select category',
+      isRequired: true,
+      requiredMessage: 'Please choose a category.',
+    },
+  },
+  {
+    key: 'rentalUnit',
+    scope: 'public',
+    schemaType: 'enum',
+    enumOptions: [
+      { option: 'hourly', label: 'Hourly' },
+      { option: 'daily', label: 'Daily' },
+    ],
+    showConfig: {
+      label: 'Rental unit',
+      isDetail: true,
+    },
+    saveConfig: {
+      label: 'Rental unit',
+      placeholderMessage: 'Select rental unit',
+      isRequired: true,
+      requiredMessage: 'Please choose a rental unit.',
+    },
+  },
+  {
+    key: 'inventoryCount',
+    scope: 'public',
+    schemaType: 'long',
+    numberConfig: {
+      minimum: 1,
+    },
+    showConfig: {
+      label: 'Quantity available',
+      isDetail: true,
+    },
+    saveConfig: {
+      label: 'Inventory count',
+      isRequired: true,
+      requiredMessage: 'Set available quantity.',
+    },
+  },
+  {
+    key: 'minRentalDuration',
+    scope: 'public',
+    schemaType: 'long',
+    numberConfig: {
+      minimum: 1,
+    },
+    showConfig: {
+      label: 'Minimum rental duration',
+      isDetail: true,
+    },
+    saveConfig: {
+      label: 'Minimum rental duration',
+    },
+  },
+  {
+    key: 'deliveryAvailable',
+    scope: 'public',
+    schemaType: 'boolean',
+    filterConfig: {
+      indexForSearch: true,
+      label: 'Delivery available',
+      group: 'primary',
+    },
+    showConfig: {
+      label: 'Delivery available',
+      isDetail: true,
+    },
+    saveConfig: {
+      label: 'Delivery available',
+      isRequired: true,
+      requiredMessage: 'Set delivery availability.',
+    },
+  },
+  {
+    key: 'pickupAvailable',
+    scope: 'public',
+    schemaType: 'boolean',
+    showConfig: {
+      label: 'Pickup available',
+      isDetail: true,
+    },
+    saveConfig: {
+      label: 'Pickup available',
+      isRequired: true,
+      requiredMessage: 'Set pickup availability.',
+    },
+  },
+  {
+    key: 'setupAvailable',
+    scope: 'public',
+    schemaType: 'boolean',
+    showConfig: {
+      label: 'Setup available',
+      isDetail: true,
+    },
+    saveConfig: {
+      label: 'Setup available',
+    },
+  },
+  {
+    key: 'breakdownAvailable',
+    scope: 'public',
+    schemaType: 'boolean',
+    showConfig: {
+      label: 'Breakdown available',
+      isDetail: true,
+    },
+    saveConfig: {
+      label: 'Breakdown available',
+    },
+  },
+  {
+    key: 'deliveryRadiusMiles',
+    scope: 'public',
+    schemaType: 'long',
+    numberConfig: {
+      minimum: 1,
+    },
+    showConfig: {
+      label: 'Delivery radius (miles)',
+      isDetail: true,
+    },
+    saveConfig: {
+      label: 'Delivery radius (miles)',
+    },
+  },
+  {
+    key: 'deliveryBaseFee',
+    scope: 'public',
+    schemaType: 'long',
+    numberConfig: {
+      minimum: 0,
+    },
+    showConfig: {
+      label: 'Delivery base fee',
+      isDetail: true,
+    },
+    saveConfig: {
+      label: 'Delivery base fee',
+    },
+  },
+  {
+    key: 'deliveryFeePerMile',
+    scope: 'public',
+    schemaType: 'long',
+    numberConfig: {
+      minimum: 0,
+    },
+    showConfig: {
+      label: 'Delivery fee per mile',
+      isDetail: true,
+    },
+    saveConfig: {
+      label: 'Delivery fee per mile',
+    },
+  },
   // {
   //   "scope": "public",
   //   "label": "Gears",

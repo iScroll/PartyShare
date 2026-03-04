@@ -108,6 +108,16 @@ const getOrderParams = (pageData, shippingDetails, optionalPaymentParams, config
   const seatsMaybe = seats ? { seats } : {};
   const deliveryMethod = pageData.orderData?.deliveryMethod;
   const deliveryMethodMaybe = deliveryMethod ? { deliveryMethod } : {};
+  const eventStartTime = pageData.orderData?.eventStartTime;
+  const eventEndTime = pageData.orderData?.eventEndTime;
+  const eventAddress = pageData.orderData?.eventAddress;
+  const eventNotes = pageData.orderData?.eventNotes;
+  const eventDate = pageData.orderData?.bookingDates?.bookingStart;
+  const eventStartTimeMaybe = eventStartTime ? { eventStartTime } : {};
+  const eventEndTimeMaybe = eventEndTime ? { eventEndTime } : {};
+  const eventAddressMaybe = eventAddress ? { eventAddress } : {};
+  const eventNotesMaybe = eventNotes ? { eventNotes } : {};
+  const eventDateMaybe = eventDate ? { eventDate } : {};
   const { listingType, unitType, priceVariants } = pageData?.listing?.attributes?.publicData || {};
 
   // price variant data for fixed duration bookings
@@ -122,6 +132,11 @@ const getOrderParams = (pageData, shippingDetails, optionalPaymentParams, config
       ...deliveryMethodMaybe,
       ...shippingDetails,
       ...priceVariantMaybe,
+      ...eventDateMaybe,
+      ...eventStartTimeMaybe,
+      ...eventEndTimeMaybe,
+      ...eventAddressMaybe,
+      ...eventNotesMaybe,
     },
   };
 

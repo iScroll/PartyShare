@@ -36,6 +36,52 @@
  *   (optional)                       data is relevant and should be added.
  */
 export const userFields = [
+
+  {
+    key: 'deliveryRadiusMiles',
+    scope: 'public',
+    schemaType: 'long',
+    showConfig: {
+      label: 'Delivery radius (miles)',
+    },
+    saveConfig: {
+      label: 'Delivery radius (miles)',
+      isRequired: false,
+    },
+    userTypeConfig: {
+      limitToUserTypeIds: false,
+    },
+  },
+  {
+    key: 'deliveryBaseFee',
+    scope: 'public',
+    schemaType: 'long',
+    showConfig: {
+      label: 'Delivery base fee',
+    },
+    saveConfig: {
+      label: 'Delivery base fee',
+      isRequired: false,
+    },
+    userTypeConfig: {
+      limitToUserTypeIds: false,
+    },
+  },
+  {
+    key: 'deliveryFeePerMile',
+    scope: 'public',
+    schemaType: 'long',
+    showConfig: {
+      label: 'Delivery fee per mile',
+    },
+    saveConfig: {
+      label: 'Delivery fee per mile',
+      isRequired: false,
+    },
+    userTypeConfig: {
+      limitToUserTypeIds: false,
+    },
+  },
   {
     key: 'cuisine',
     scope: 'public',
