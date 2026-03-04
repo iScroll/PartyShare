@@ -286,7 +286,7 @@ export const handleSubmit = parameters => values => {
   const saveToSessionStorage = !currentUser;
 
   // Customize checkout page state with current listing and selected orderData
-  const { setInitialValues } = findRouteByRouteName('CheckoutPage', routes);
+  const { setInitialValues } = findRouteByRouteName('BookingRequestPage', routes);
 
   callSetInitialValues(setInitialValues, initialValues, saveToSessionStorage);
 
@@ -296,7 +296,7 @@ export const handleSubmit = parameters => values => {
   // Redirect to CheckoutPage
   history.push(
     createResourceLocatorString(
-      'CheckoutPage',
+      'BookingRequestPage',
       routes,
       { id: listing.id.uuid, slug: createSlug(listing.attributes.title) },
       {}

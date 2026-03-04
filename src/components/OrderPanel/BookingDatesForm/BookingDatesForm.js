@@ -700,7 +700,7 @@ export const BookingDatesForm = props => {
         const submitDisabled = isPriceVariationsInUse && !isPublishedListing;
 
         return (
-          <Form onSubmit={handleSubmit} className={classes} enforcePagePreloadFor="CheckoutPage">
+          <Form onSubmit={handleSubmit} className={classes} enforcePagePreloadFor="BookingRequestPage">
             {PriceVariantFieldComponent ? (
               <PriceVariantFieldComponent
                 priceVariants={priceVariants}

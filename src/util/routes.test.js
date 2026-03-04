@@ -59,8 +59,8 @@ describe('util/routes.js', () => {
 
   describe('findRouteByRouteName', () => {
     it('should return CheckoutPage route', () => {
-      const foundRoute = findRouteByRouteName('CheckoutPage', routes);
-      expect(foundRoute.name).toEqual('CheckoutPage');
+      const foundRoute = findRouteByRouteName('BookingRequestPage', routes);
+      expect(foundRoute.name).toEqual('BookingRequestPage');
       expect(typeof foundRoute.setInitialValues).toEqual('function');
     });
 
