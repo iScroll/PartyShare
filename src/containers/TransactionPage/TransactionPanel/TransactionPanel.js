@@ -341,6 +341,58 @@ export class TransactionPanelComponent extends Component {
                   listing={listing}
                   showBookingLocation={showBookingLocation}
                 />
+
+                {protectedData?.eventDate ||
+                protectedData?.eventStartTime ||
+                protectedData?.eventEndTime ||
+                protectedData?.eventAddress ||
+                protectedData?.eventNotes ? (
+                  <div className={css.eventDetailsSection}>
+                    <h3 className={css.eventDetailsHeading}>
+                      <FormattedMessage id="TransactionPanel.eventDetailsTitle" />
+                    </h3>
+                    {protectedData?.eventDate ? (
+                      <p>
+                        <FormattedMessage
+                          id="TransactionPanel.eventDate"
+                          values={{ date: intl.formatDate(protectedData.eventDate) }}
+                        />
+                      </p>
+                    ) : null}
+                    {protectedData?.eventStartTime ? (
+                      <p>
+                        <FormattedMessage
+                          id="TransactionPanel.eventStartTime"
+                          values={{ time: protectedData.eventStartTime }}
+                        />
+                      </p>
+                    ) : null}
+                    {protectedData?.eventEndTime ? (
+                      <p>
+                        <FormattedMessage
+                          id="TransactionPanel.eventEndTime"
+                          values={{ time: protectedData.eventEndTime }}
+                        />
+                      </p>
+                    ) : null}
+                    {protectedData?.eventAddress ? (
+                      <p>
+                        <FormattedMessage
+                          id="TransactionPanel.eventAddress"
+                          values={{ address: protectedData.eventAddress }}
+                        />
+                      </p>
+                    ) : null}
+                    {protectedData?.eventNotes ? (
+                      <p>
+                        <FormattedMessage
+                          id="TransactionPanel.eventNotes"
+                          values={{ notes: protectedData.eventNotes }}
+                        />
+                      </p>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
             ) : null}
 

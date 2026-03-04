@@ -1416,5 +1416,24 @@
   "UserNav.accountSettings": "Configuración de la cuenta",
   "UserNav.profileSettings": "Configuración de perfil",
   "UserNav.screenreader.userNav": "Navegación de perfil de usuario",
-  "UserNav.yourListings": "Tus anuncios"
+  "UserNav.yourListings": "Tus anuncios",
+
+  "BookingDatesForm.deliveryMethodLabel": "Delivery method",
+  "BookingDatesForm.deliveryMethodPlaceholder": "Select delivery method…",
+  "BookingDatesForm.pickupOption": "Pickup",
+  "BookingDatesForm.deliveryOption": "Delivery",
+  "BookingDatesForm.deliveryMethodRequired": "Select delivery method",
+  "BookingDatesForm.eventStartTimeLabel": "Event start time",
+  "BookingDatesForm.eventStartTimeRequired": "Enter event start time",
+  "BookingDatesForm.eventEndTimeLabel": "Event end time",
+  "BookingDatesForm.eventEndTimeRequired": "Enter event end time",
+  "BookingDatesForm.eventAddressLabel": "Event address",
+  "BookingDatesForm.eventAddressRequired": "Enter event address",
+  "BookingDatesForm.eventNotesLabel": "Event notes (optional)",
+  "TransactionPanel.eventDetailsTitle": "Event details",
+  "TransactionPanel.eventDate": "Event date: {date}",
+  "TransactionPanel.eventStartTime": "Start time: {time}",
+  "TransactionPanel.eventEndTime": "End time: {time}",
+  "TransactionPanel.eventAddress": "Address: {address}",
+  "TransactionPanel.eventNotes": "Notes: {notes}"
 }

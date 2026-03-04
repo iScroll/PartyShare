@@ -21,7 +21,14 @@ import { LINE_ITEM_DAY, propTypes } from '../../../util/types';
 import { timeSlotsPerDate } from '../../../util/generators';
 import { BOOKING_PROCESS_NAME } from '../../../transactions/transaction';
 
-import { Form, PrimaryButton, FieldDateRangePicker, FieldSelect, H6 } from '../../../components';
+import {
+  Form,
+  PrimaryButton,
+  FieldDateRangePicker,
+  FieldSelect,
+  FieldTextInput,
+  H6,
+} from '../../../components';
 
 import EstimatedCustomerBreakdownMaybe from '../EstimatedCustomerBreakdownMaybe';
 
@@ -823,6 +830,67 @@ export const BookingDatesForm = props => {
                 ))}
               </FieldSelect>
             ) : null}
+
+            <FieldSelect
+              id={`${formId}.deliveryMethod`}
+              name="deliveryMethod"
+              className={css.fieldDeliveryMethod}
+              label={intl.formatMessage({ id: 'BookingDatesForm.deliveryMethodLabel' })}
+              validate={required(
+                intl.formatMessage({ id: 'BookingDatesForm.deliveryMethodRequired' })
+              )}
+            >
+              <option disabled value="">
+                {intl.formatMessage({ id: 'BookingDatesForm.deliveryMethodPlaceholder' })}
+              </option>
+              <option value="pickup">
+                {intl.formatMessage({ id: 'BookingDatesForm.pickupOption' })}
+              </option>
+              <option value="shipping">
+                {intl.formatMessage({ id: 'BookingDatesForm.deliveryOption' })}
+              </option>
+            </FieldSelect>
+
+            <FieldTextInput
+              id={`${formId}.eventStartTime`}
+              name="eventStartTime"
+              type="time"
+              className={css.fieldEventTime}
+              label={intl.formatMessage({ id: 'BookingDatesForm.eventStartTimeLabel' })}
+              validate={required(
+                intl.formatMessage({ id: 'BookingDatesForm.eventStartTimeRequired' })
+              )}
+            />
+
+            <FieldTextInput
+              id={`${formId}.eventEndTime`}
+              name="eventEndTime"
+              type="time"
+              className={css.fieldEventTime}
+              label={intl.formatMessage({ id: 'BookingDatesForm.eventEndTimeLabel' })}
+              validate={required(
+                intl.formatMessage({ id: 'BookingDatesForm.eventEndTimeRequired' })
+              )}
+            />
+
+            <FieldTextInput
+              id={`${formId}.eventAddress`}
+              name="eventAddress"
+              type="text"
+              className={css.fieldEventAddress}
+              label={intl.formatMessage({ id: 'BookingDatesForm.eventAddressLabel' })}
+              validate={required(
+                intl.formatMessage({ id: 'BookingDatesForm.eventAddressRequired' })
+              )}
+            />
+
+            <FieldTextInput
+              id={`${formId}.eventNotes`}
+              name="eventNotes"
+              type="textarea"
+              className={css.fieldEventNotes}
+              label={intl.formatMessage({ id: 'BookingDatesForm.eventNotesLabel' })}
+            />
 
             {showEstimatedBreakdown ? (
               <div className={css.priceBreakdownContainer}>
