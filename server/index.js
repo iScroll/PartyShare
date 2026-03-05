@@ -49,7 +49,7 @@ const { getSDKProxy } = require('./api-util/sdkCacheProxy');
 
 const buildPath = path.resolve(__dirname, '..', 'build');
 const dev = process.env.REACT_APP_ENV === 'development';
-const PORT = parseInt(process.env.PORT, 10);
+const DEFAULT_PORT = 4000;
 const redirectSSL =
   process.env.SERVER_SHARETRIBE_REDIRECT_SSL != null
     ? process.env.SERVER_SHARETRIBE_REDIRECT_SSL
@@ -343,21 +343,33 @@ if (cspEnabled) {
   });
 }
 
-const server = app.listen(PORT, () => {
-  const mode = dev ? 'development' : 'production';
-  console.log(`Listening to port ${PORT} in ${mode} mode`);
-  if (dev) {
-    console.log(`Open http://localhost:${PORT}/ and start hacking!\n`);
-  }
-});
+const startServer = () => {
+  const PORT = parseInt(process.env.PORT, 10) || DEFAULT_PORT;
+  const server = app.listen(PORT, () => {
+    const mode = dev ? 'development' : 'production';
+    console.log(`Listening to port ${PORT} in ${mode} mode`);
+    if (dev) {
+      console.log(`Open http://localhost:${PORT}/ and start hacking!\n`);
+    }
+  });
 
-// Graceful shutdown:
-// https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html
-['SIGINT', 'SIGTERM'].forEach(signal => {
-  process.on(signal, () => {
-    console.log('Shutting down...');
-    server.close(() => {
-      console.log('Server shut down.');
+  // Graceful shutdown:
+  // https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html
+  ['SIGINT', 'SIGTERM'].forEach(signal => {
+    process.on(signal, () => {
+      console.log('Shutting down...');
+      server.close(() => {
+        console.log('Server shut down.');
+      });
     });
   });
-});
+
+  return server;
+};
+
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = app;
+module.exports.startServer = startServer;
