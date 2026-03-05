@@ -343,21 +343,30 @@ if (cspEnabled) {
   });
 }
 
-const server = app.listen(PORT, () => {
-  const mode = dev ? 'development' : 'production';
-  console.log(`Listening to port ${PORT} in ${mode} mode`);
-  if (dev) {
-    console.log(`Open http://localhost:${PORT}/ and start hacking!\n`);
-  }
-});
+const isVercelRuntime = process.env.VERCEL === '1';
+let server;
+
+if (!isVercelRuntime) {
+  server = app.listen(PORT, () => {
+    const mode = dev ? 'development' : 'production';
+    console.log(`Listening to port ${PORT} in ${mode} mode`);
+    if (dev) {
+      console.log(`Open http://localhost:${PORT}/ and start hacking!\n`);
+    }
+  });
+}
 
 // Graceful shutdown:
 // https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html
 ['SIGINT', 'SIGTERM'].forEach(signal => {
   process.on(signal, () => {
-    console.log('Shutting down...');
-    server.close(() => {
-      console.log('Server shut down.');
-    });
+    if (server) {
+      console.log('Shutting down...');
+      server.close(() => {
+        console.log('Server shut down.');
+      });
+    }
   });
 });
+
+module.exports = app;
