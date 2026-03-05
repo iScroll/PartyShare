@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "buildCommand": "yarn build",
+  "installCommand": "yarn install --frozen-lockfile",
+  "functions": {
+    "api/vercel.js": {
+      "maxDuration": 60
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/vercel.js"
+    }
+  ]
+}

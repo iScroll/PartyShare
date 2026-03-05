@@ -46,6 +46,23 @@ the
 [How to Customize the Template](https://www.sharetribe.com/docs/template/how-to-customize-template/)
 guide in Developer Docs.
 
+
+## Deploying to Vercel
+
+This repository includes a `vercel.json` configuration and an `api/vercel.js` serverless entrypoint
+for SSR deployments on Vercel.
+
+1. Create a new Vercel project and connect this repository.
+2. Keep the default build command (`yarn build`).
+3. Add the required environment variables from your `.env` file in the Vercel project settings
+   (at minimum: `REACT_APP_SHARETRIBE_SDK_CLIENT_ID`, `SHARETRIBE_SDK_CLIENT_SECRET`,
+   `REACT_APP_MARKETPLACE_NAME`, and `REACT_APP_MARKETPLACE_ROOT_URL`).
+4. Deploy from the Vercel dashboard or from CLI:
+
+```sh
+vercel --prod
+```
+
 ## Deploying to Heroku
 
 **Note:** Remember to fork the repository before deploying the application. Connecting your own
