@@ -343,21 +343,29 @@ if (cspEnabled) {
   });
 }
 
-const server = app.listen(PORT, () => {
-  const mode = dev ? 'development' : 'production';
-  console.log(`Listening to port ${PORT} in ${mode} mode`);
-  if (dev) {
-    console.log(`Open http://localhost:${PORT}/ and start hacking!\n`);
-  }
-});
+const startServer = () => {
+  const server = app.listen(PORT, () => {
+    const mode = dev ? 'development' : 'production';
+    console.log(`Listening to port ${PORT} in ${mode} mode`);
+    if (dev) {
+      console.log(`Open http://localhost:${PORT}/ and start hacking!\n`);
+    }
+  });
 
-// Graceful shutdown:
-// https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html
-['SIGINT', 'SIGTERM'].forEach(signal => {
-  process.on(signal, () => {
-    console.log('Shutting down...');
-    server.close(() => {
-      console.log('Server shut down.');
+  // Graceful shutdown:
+  // https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html
+  ['SIGINT', 'SIGTERM'].forEach(signal => {
+    process.on(signal, () => {
+      console.log('Shutting down...');
+      server.close(() => {
+        console.log('Server shut down.');
+      });
     });
   });
-});
+};
+
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = app;
