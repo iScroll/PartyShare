@@ -57,6 +57,11 @@ guide in Developer Docs for more information.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+## PartyShare implementation runbook
+
+For PartyShare-specific setup (fresh fork + Sharetribe app credentials + Stripe + Vercel
+deployment), see [`docs/partyshare-start-from-scratch.md`](docs/partyshare-start-from-scratch.md).
+
 ## Documentation
 
 See the Sharetribe Developer Docs: [sharetribe.com/docs/](https://www.sharetribe.com/docs/)
