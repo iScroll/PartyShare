@@ -326,7 +326,7 @@ export const TransactionPageComponent = props => {
 
   const redirectToCheckoutPageWithInitialValues = (initialValues, currentListing) => {
     // Customize checkout page state with current listing and selected bookingDates
-    const { setInitialValues } = findRouteByRouteName('CheckoutPage', routeConfiguration);
+    const { setInitialValues } = findRouteByRouteName('BookingRequestPage', routeConfiguration);
     callSetInitialValues(setInitialValues, initialValues);
 
     // Clear previous Stripe errors from store if there is any
@@ -335,7 +335,7 @@ export const TransactionPageComponent = props => {
     // Redirect to CheckoutPage
     history.push(
       createResourceLocatorString(
-        'CheckoutPage',
+        'BookingRequestPage',
         routeConfiguration,
         { id: currentListing.id.uuid, slug: createSlug(currentListing.attributes.title) },
         {}

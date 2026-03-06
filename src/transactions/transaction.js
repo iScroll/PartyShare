@@ -1,5 +1,4 @@
 import * as log from '../util/log';
-import * as purchaseProcess from './transactionProcessPurchase';
 import * as bookingProcess from './transactionProcessBooking';
 import * as inquiryProcess from './transactionProcessInquiry';
 import * as negotiationProcess from './transactionProcessNegotiation';
@@ -7,7 +6,6 @@ import * as negotiationProcess from './transactionProcessNegotiation';
 // Supported unit types
 // Note: These are passed to translations/microcopy in certain cases.
 //       Therefore, they can't contain wordbreaks like '-' or space ' '
-export const ITEM = 'item';
 export const DAY = 'day';
 export const NIGHT = 'night';
 export const HOUR = 'hour';
@@ -17,7 +15,6 @@ export const OFFER = 'offer'; // The unitType 'offer' means that provider create
 export const REQUEST = 'request'; // The unitType 'request' means that customer created the listing on default-negotiation process
 
 // Then names of supported processes
-export const PURCHASE_PROCESS_NAME = 'default-purchase';
 export const BOOKING_PROCESS_NAME = 'default-booking';
 export const INQUIRY_PROCESS_NAME = 'default-inquiry';
 export const NEGOTIATION_PROCESS_NAME = 'default-negotiation';
@@ -36,12 +33,6 @@ export const NEGOTIATION_PROCESS_NAME = 'default-negotiation';
  * - statesNeedingCustomerAttention
  */
 const PROCESSES = [
-  {
-    name: PURCHASE_PROCESS_NAME,
-    alias: `${PURCHASE_PROCESS_NAME}/release-1`,
-    process: purchaseProcess,
-    unitTypes: [ITEM],
-  },
   {
     name: BOOKING_PROCESS_NAME,
     alias: `${BOOKING_PROCESS_NAME}/release-1`,
@@ -218,8 +209,8 @@ export const resolveLatestProcessName = processName => {
   switch (processName) {
     case 'flex-product-default-process':
     case 'default-buying-products':
-    case PURCHASE_PROCESS_NAME:
-      return PURCHASE_PROCESS_NAME;
+    case 'default-purchase':
+      return BOOKING_PROCESS_NAME;
     case 'flex-default-process':
     case 'flex-hourly-default-process':
     case 'flex-booking-default-process':
@@ -275,25 +266,15 @@ export const getAllTransitionsForEveryProcess = () => {
 };
 
 /**
- * Check if the process is purchase process
- *
- * @param {String} processName
+ * Purchase process is disabled for booking-only marketplace.
+ * Kept for backward compatibility in guards.
  */
-export const isPurchaseProcess = processName => {
-  const latestProcessName = resolveLatestProcessName(processName);
-  const processInfo = PROCESSES.find(process => process.name === latestProcessName);
-  return [PURCHASE_PROCESS_NAME].includes(processInfo?.name);
-};
+export const isPurchaseProcess = _processName => false;
 
 /**
- * Check if the process/alias points to a booking process
- *
- * @param {String} processAlias
+ * Purchase process aliases are disabled for booking-only marketplace.
  */
-export const isPurchaseProcessAlias = processAlias => {
-  const processName = processAlias ? processAlias.split('/')[0] : null;
-  return processAlias ? isPurchaseProcess(processName) : false;
-};
+export const isPurchaseProcessAlias = _processAlias => false;
 
 /**
  * Check if the process is booking process

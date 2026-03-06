@@ -76,7 +76,7 @@ export const createResourceLocatorString = (
 
 /**
  * Find component related to route name
- * E.g. `const PageComponent = findComponentByRouteName('CheckoutPage', routes);`
+ * E.g. `const PageComponent = findComponentByRouteName('BookingRequestPage', routes);`
  * Then we can call static methods of given component:
  * `dispatch(PageComponent.setInitialValues({ listing, bookingDates }));`
  *

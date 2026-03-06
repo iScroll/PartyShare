@@ -13,7 +13,7 @@ import { NamedRedirect } from '../components';
 const pageDataLoadingAPI = getPageDataLoadingAPI();
 
 const AuthenticationPage = loadable(() => import(/* webpackChunkName: "AuthenticationPage" */ '../containers/AuthenticationPage/AuthenticationPage'));
-const CheckoutPage = loadable(() => import(/* webpackChunkName: "CheckoutPage" */ '../containers/CheckoutPage/CheckoutPage'));
+const BookingRequestPage = loadable(() => import(/* webpackChunkName: "BookingRequestPage" */ '../containers/CheckoutPage/CheckoutPage'));
 const CMSPage = loadable(() => import(/* webpackChunkName: "CMSPage" */ '../containers/CMSPage/CMSPage'));
 const ContactDetailsPage = loadable(() => import(/* webpackChunkName: "ContactDetailsPage" */ '../containers/ContactDetailsPage/ContactDetailsPage'));
 const EditListingPage = loadable(() => import(/* webpackChunkName: "EditListingPage" */ '../containers/EditListingPage/EditListingPage'));
@@ -135,10 +135,10 @@ const routeConfiguration = (layoutConfig, accessControlConfig) => {
       loadData: pageDataLoadingAPI.RequestQuotePage.loadData,
     },
     {
-      path: '/l/:slug/:id/checkout',
-      name: 'CheckoutPage',
+      path: '/l/:slug/:id/request-booking',
+      name: 'BookingRequestPage',
       auth: true,
-      component: CheckoutPage,
+      component: BookingRequestPage,
       setInitialValues: pageDataLoadingAPI.CheckoutPage.setInitialValues,
     },
     {
